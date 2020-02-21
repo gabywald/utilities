@@ -9,6 +9,10 @@ import java.util.GregorianCalendar;
  */
 public class Logger {
 
+	/**
+	 * Logger's Levels. 
+	 * @author Gabriel Chandesris (2013)
+	 */
 	public enum LoggerLevel {
 		LL_NONE		("NONE"), 
 		LL_VERBOSE	("VERBOSE"), 
@@ -29,10 +33,14 @@ public class Logger {
 	private LoggerLevel level;
 	
 	/** Default Constructor. 
-	 * Logger level is set to LL_INFO. */
+	 * Logger level is set to LL_INFO. 
+	 */
 	private Logger() { this.level = LoggerLevel.LL_INFO; }
 	
-	/** To get instance. */
+	/**
+	 * To get instance.  
+	 * @return (Logger)
+	 */
 	public static Logger getInstance() { 
 		if (Logger.instance == null) 
 			{ Logger.instance = new Logger(); }
