@@ -2,13 +2,13 @@
 ***** Base64 *****
 https://fr.wikipedia.org/wiki/Base64
 
-Un alphabet de 65 caractères est utilisé pour permettre la représentation de 6 bits par un caractère. Le 65e caractère (signe « = ») n'est utilisé qu'en complément final dans le processus de codage d'un message.
+Un alphabet de 65 caractÃ©res est utilisÃ© pour permettre la reprÃ©sentation de 6 bits par un caractÃ¨re. Le 65e caractÃ¨re (signe = ) n'est utilisÃ© qu'en complÃ©ment final dans le processus de codage d'un message.
 
-Ce processus de codage consiste à coder chaque groupe de 24 bits successifs de données par une chaîne de 4 caractères. On procède de gauche à droite, en concaténant 3 octets pour créer un seul groupement de 24 bits (8 bits par octet). Ils sont alors séparés en 4 nombres de seulement 6 bits (qui en binaire ne permettent que 64 combinaisons). Chacune des 4 valeurs est enfin représentée (codée) par un caractère de l'alphabet retenu. (Table ci-dessous.)
+Ce processus de codage consiste Ã  coder chaque groupe de 24 bits successifs de donnÃ©es par une chaÃ®ne de 4 caractÃ¨res. On procÃ¨de de gauche Ã  droite, en concatÃ©nant 3 octets pour crÃ©er un seul groupement de 24 bits (8 bits par octet). Ils sont alors sÃ©parÃ©s en 4 nombres de seulement 6 bits (qui en binaire ne permettent que 64 combinaisons). Chacune des 4 valeurs est enfin reprÃ©sentÃ©e (codï¿½e) par un caractÃ¨re de l'alphabet retenu. (Table ci-dessous.)
 
-Ainsi 3 octets quelconques sont remplacés par 4 caractères, choisis pour être compatibles avec tous les systèmes existants.
+Ainsi 3 octets quelconques sont remplacÃ©s par 4 caractÃ¨res, choisis pour Ãªtre compatibles avec tous les systÃªmes existants.
 
-Chaque valeur (chaque groupe de 6 bits) est utilisée comme index dans la table ci-dessous. Le caractère correspondant est indiqué dans la colonne codage.
+Chaque valeur (chaque groupe de 6 bits) est utilisÃ©e comme index dans la table ci-dessous. Le caractÃ¨re correspondant est indiquÃ© dans la colonne codage.
 
         Valeur Codage         Valeur Codage         Valeur Codage         Valeur Codage
       0 000000 A           17 010001 R           34 100010 i           51 110011 z
@@ -25,20 +25,20 @@ Chaque valeur (chaque groupe de 6 bits) est utilisée comme index dans la table c
      11 001011 L           28 011100 c           45 101101 t           62 111110 +
      12 001100 M           29 011101 d           46 101110 u           63 111111 /
      13 001101 N           30 011110 e           47 101111 v
-     14 001110 O           31 011111 f           48 110000 w        (complément) =
+     14 001110 O           31 011111 f           48 110000 w        (complÃ©ment) =
      15 001111 P           32 100000 g           49 110001 x
      16 010000 Q           33 100001 h           50 110010 y
-Un traitement spécial est effectué si moins de 24 bits sont disponibles à la fin de la séquence de données à coder (elle n'a pas forcément une taille multiple de 24 bits). Dans un tel cas, des zéros sont ajoutés à la droite des données initiales pour aller vers le multiple de 6 bits le plus proche. Chaque paquet de 6 bits est converti dans l'alphabet. Puis on ajoute des caractères « = » complémentaires pour former quand même 4 caractères.
+Un traitement spÃ©cial est effectuÃ© si moins de 24 bits sont disponibles Ã  la fin de la sÃ©quence de donnÃ©es Ã  coder (elle n'a pas forcÃ©ment une taille multiple de 24 bits). Dans un tel cas, des zÃ©ros sont ajoutï¿½s Ã  la droite des donnÃ©es initiales pour aller vers le multiple de 6 bits le plus proche. Chaque paquet de 6 bits est converti dans l'alphabet. Puis on ajoute des caractÃ¨res Ã  = Ã  complÃ©mentaires pour former quand mï¿½me 4 caractÃ¨res.
 
-Puisque les données d'entrée doivent être constituées d'un nombre entier d'octets, seuls trois cas sont possibles en fin de séquence :
+Puisque les donnÃ©es d'entrï¿½e doivent Ãªtre constituï¿½es d'un nombre entier d'octets, seuls trois cas sont possibles en fin de sÃ©quence :
 
-il reste exactement 3 octets à coder (24 bits), alors on obtient directement 4 caractères sans traitement complémentaire ;
-il reste seulement 2 octets (16 bits) à coder, alors on ajoute à droite 2 bits à zéros pour former 3 caractères de l'alphabet (3×6 = 16+2 = 18 bits) suivis d'un quatrième caractère « = » en complément ;
-il reste un seul octet (8 bits) à coder, alors on ajoute à droite 4 bits à zéros pour former 2 caractères de l'alphabet (2×6 = 8+4 = 12 bits) suivis de deux caractères « = » en complément.
+il reste exactement 3 octets Ã  coder (24 bits), alors on obtient directement 4 caractÃ¨res sans traitement complÃ©mentaire ;
+il reste seulement 2 octets (16 bits) Ã  coder, alors on ajoute Ã  droite 2 bits Ã  zÃ©ros pour former 3 caractÃ¨res de l'alphabet (3ï¿½6 = 16+2 = 18 bits) suivis d'un quatriï¿½me caractÃ¨re Ã  = Ã  en complÃ©ment ;
+il reste un seul octet (8 bits) Ã  coder, alors on ajoute Ã  droite 4 bits Ã  zÃ©ros pour former 2 caractÃ¨res de l'alphabet (2ï¿½6 = 8+4 = 12 bits) suivis de deux caractÃ¨res Ã  = Ã  en complÃ©ment.
 
 
      
-Le document RFC 4648 prévoit une alternative pour un encodage compatible avec les noms de fichiers et les URI. En effet les caractères 62 (+) et 63 (/) peuvent poser problème avec certains systèmes de fichiers et dans les URI. La solution retenue consiste à remplacer ces caractères respectivement par un moins (-) et un souligné (_). Le caractère de complément reste le « = », mais peut être ignoré. Ce système est par exemple utilisé pour la réduction d'URL.
+Le document RFC 4648 prï¿½voit une alternative pour un encodage compatible avec les noms de fichiers et les URI. En effet les caractÃ¨res 62 (+) et 63 (/) peuvent poser problï¿½me avec certains systÃ¨mes de fichiers et dans les URI. La solution retenue consiste Ã  remplacer ces caractÃ¨res respectivement par un moins (-) et un soulignÃ© (_). Le caractÃ¨re de complÃ©ment reste le '=', mais peut Ãªtre ignorÃ©. Ce systÃ¨me est par exemple utilisÃ© pour la rÃ©duction d'URL.
 
         Valeur Codage         Valeur Codage         Valeur Codage         Valeur Codage
       0 000000 A           17 010001 R           34 100010 i           51 110011 z
@@ -55,7 +55,7 @@ Le document RFC 4648 prévoit une alternative pour un encodage compatible avec le
      11 001011 L           28 011100 c           45 101101 t           62 111110 - (minus)
      12 001100 M           29 011101 d           46 101110 u           63 111111 _ (underline)
      13 001101 N           30 011110 e           47 101111 v
-     14 001110 O           31 011111 f           48 110000 w        (complément) =
+     14 001110 O           31 011111 f           48 110000 w        (complÃ©ment) =
      15 001111 P           32 100000 g           49 110001 x
      16 010000 Q           33 100001 h           50 110010 y
      
