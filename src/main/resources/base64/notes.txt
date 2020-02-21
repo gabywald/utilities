@@ -1,0 +1,126 @@
+
+http://www.commentcamarche.net/contents/94-codage-base64 -- 
+
+Le codage Base64
+
+Le principe du codage Base 64 consiste à utiliser des caractères US-ASCII (caractères non accentués) pour coder tout type de données codé sur 8 bits.
+
+Les protocoles de courrier électronique ont en effet été prévus à l'origine pour transporter des messages en texte seulement. Or, étant donné la diversité des systèmes de courrier électronique, l'échange de données binaires se traduit la plupart du temps par des transformations du contenu rendant illisible le document original.
+
+Le format Base64, utilisé massivement dans les échanges de courrier électronique, permet ainsi de transmettre n'importe quel document binaire (application, vidéo, fichier audio, etc.) en pièce jointe d'un courrier électronique en les codant à l'aide de caractères classiques.
+
+Le codage Base64 provoque une augmentation globale de 33% du volume des données à encoder.
+
+Principe de codage Base64
+
+Le principe du codage Base64 consiste à utiliser 4 caractères imprimables (au format US-ASCII) pour coder un groupe de 3 octets quelconques (3*8 bits = 24 bits).
+
+Le codage Base64 utilise un alphabet de 64 caractères imprimables classiques pour représenter une donnée de 6 bits. Les 64 symboles de cet alphabet son choisis pour être universellement lisibles et pour ne pas posséder de signification dans les principaux protocoles de messagerie (en particulier SMTP).
+
+ABCDEFGHIJKLMNOPQRSTUVWXYZ 
+abcdefghijklmnopqrstuvwxyz 
+0123456789+/
+
+En parcourant les données binaires de gauche à droite, des groupes de 24 bits sont créés en concaténant des blocs de 3 données de 8 bits. Chaque groupe de 24 bits est ensuite divisé en 4 groupes de 6 bits, correspondant à 4 caractères de l'alphabet Base64.
+
+L'encodage Base64 est prévu pour des données formant un multiple de 24 bits. Ainsi, si le volume des données à coder ne forment pas un multiple de 24 bits, le résultat du codage Base64 doit être complété par 0 à 3 caractères « = » afin d'obtenir un multiple de 24 bits. Ce 65ème caractère ne peut ainsi être présent qu'à la fin des données encodées.
+
+Par ailleurs, afin de garantir une compatibilité avec l'ensemble des systèmes de messagerie, les données Base64 sont formattées avec des retours à la ligne afin que chaque ligne ne dépasse pas 76 caractères.
+
+Plus d'informations
+
+    RFC: http://tools.ietf.org/html/rfc3548
+
+
+https://fr.wikipedia.org/wiki/Base64 -- (et aussi https://fr.wikipedia.org/wiki/Quoted-Printable -- )
+
+En informatique, base64 est un codage de l'information utilisant 64 caractères, choisis pour être disponibles sur la majorité des systèmes. Défini en tant qu'encodage MIME dans le RFC 2045, il est principalement utilisé pour la transmission de messages (courrier électronique et forums Usenet) sur l'Internet. Il est par ailleurs défini en propre dans le RFC 4648.
+
+Sommaire
+
+    1 Description
+    2 Inconvénients
+    3 Intérêt
+    4 base64url
+    5 Exemple
+        5.1 Exemple avec OpenSSL
+    6 Liens externes
+
+Description
+
+Un alphabet de 65 caractères est utilisé pour permettre la représentation de 6 bits par un caractère. Le 65e caractère (signe « = ») n'est utilisé qu'en complément final dans le processus de codage d'un message.
+
+Ce processus de codage consiste à coder chaque groupe de 24 bits successifs de données par une chaîne de 4 caractères. On procède de gauche à droite, en concaténant 3 octets pour créer un seul groupement de 24 bits (8 bits par octet). Ils sont alors séparés en 4 nombres de seulement 6 bits (qui en binaire ne permettent que 64 combinaisons). Chacune des 4 valeurs est enfin représentée (codée) par un caractère de l'alphabet retenu. (Table ci-dessous.)
+
+Ainsi 3 octets quelconques sont remplacés par 4 caractères, choisis pour être compatibles avec tous les systèmes existants.
+
+Chaque valeur (chaque groupe de 6 bits) est utilisée comme index dans la table ci-dessous. Le caractère correspondant est indiqué dans la colonne codage.
+
+        Valeur Codage         Valeur Codage         Valeur Codage         Valeur Codage
+      0 000000 A           17 010001 R           34 100010 i           51 110011 z
+      1 000001 B           18 010010 S           35 100011 j           52 110100 0
+      2 000010 C           19 010011 T           36 100100 k           53 110101 1
+      3 000011 D           20 010100 U           37 100101 l           54 110110 2
+      4 000100 E           21 010101 V           38 100110 m           55 110111 3
+      5 000101 F           22 010110 W           39 100111 n           56 111000 4
+      6 000110 G           23 010111 X           40 101000 o           57 111001 5
+      7 000111 H           24 011000 Y           41 101001 p           58 111010 6
+      8 001000 I           25 011001 Z           42 101010 q           59 111011 7
+      9 001001 J           26 011010 a           43 101011 r           60 111100 8
+     10 001010 K           27 011011 b           44 101100 s           61 111101 9
+     11 001011 L           28 011100 c           45 101101 t           62 111110 +
+     12 001100 M           29 011101 d           46 101110 u           63 111111 /
+     13 001101 N           30 011110 e           47 101111 v
+     14 001110 O           31 011111 f           48 110000 w        (complément) =
+     15 001111 P           32 100000 g           49 110001 x
+     16 010000 Q           33 100001 h           50 110010 y
+
+Un traitement spécial est effectué si moins de 24 bits sont disponibles à la fin de la séquence de données à coder (elle n'a pas forcément une taille multiple de 24 bits). Dans un tel cas, des zéros sont ajoutés à la droite des données initiales pour aller vers le multiple de 6 bits le plus proche. Chaque paquet de 6 bits est converti dans l'alphabet. Puis on ajoute des caractères « = » complémentaires pour former quand même 4 caractères.
+
+Puisque les données d'entrée doivent être constituées d'un nombre entier d'octets, seuls trois cas sont possibles en fin de séquence :
+
+    il reste exactement 3 octets à coder (24 bits), alors on obtient directement 4 caractères sans traitement complémentaire ;
+    il reste seulement 2 octets (16 bits) à coder, alors on ajoute à droite 2 bits à zéros pour former 3 caractères de l'alphabet (3×6 = 16+2 = 18 bits) suivis d'un quatrième caractère « = » en complément ;
+    il reste un seul octet (8 bits) à coder, alors on ajoute à droite 4 bits à zéros pour former 2 caractères de l'alphabet (2×6 = 8+4 = 12 bits) suivis de deux caractères « = » en complément.
+
+Inconvénients
+
+Ce codage augmente la taille des données : la taille des données est augmentée d'au moins un tiers. Les caractères « blancs » (espace, tabulation, retour à la ligne) augmentent encore plus la taille.
+
+Avec ce codage, même les caractères lisibles dans les données d'origine sont encodés de manière illisible. Si la majorité des caractères d'un texte initial sont déjà lisibles, on peut envisager de ne coder que les caractères problématiques. Voir par exemple pour cela l'encodage Quoted-Printable.
+Intérêt
+
+L’intérêt de l'encodage base64 ne se trouve donc pas dans la représentation de données textuelles, mais surtout dans la représentation de données binaires.
+
+Lorsque l’on veut représenter des données binaires (une image, un exécutable) dans un document textuel, tel qu’un courriel, la transcription hexadécimale en ASCII des octets multiplierait la taille par deux, l'encodage en base64 permet de limiter cette augmentation.
+
+Par ailleurs, le reproche fait sur la lisibilité des données tombe de lui-même dans ces conditions : les données binaires n’ont pas vocation à être compréhensibles sans interprétation par un logiciel dédié (cas d’une image, par exemple).
+base64url
+
+Le document RFC 4648 prévoit une alternative pour un encodage compatible avec les noms de fichiers et les URI. En effet les caractères 62 (+) et 63 (/) peuvent poser problème avec certains systèmes de fichiers et dans les URI. La solution retenue consiste à remplacer ces caractères respectivement par un moins (-) et un souligné (_). Le caractère de complément reste le « = », mais peut être ignoré. Ce système est par exemple utilisé pour la réduction d'URL.
+
+        Valeur Codage         Valeur Codage         Valeur Codage         Valeur Codage
+      0 000000 A           17 010001 R           34 100010 i           51 110011 z
+      1 000001 B           18 010010 S           35 100011 j           52 110100 0
+      2 000010 C           19 010011 T           36 100100 k           53 110101 1
+      3 000011 D           20 010100 U           37 100101 l           54 110110 2
+      4 000100 E           21 010101 V           38 100110 m           55 110111 3
+      5 000101 F           22 010110 W           39 100111 n           56 111000 4
+      6 000110 G           23 010111 X           40 101000 o           57 111001 5
+      7 000111 H           24 011000 Y           41 101001 p           58 111010 6
+      8 001000 I           25 011001 Z           42 101010 q           59 111011 7
+      9 001001 J           26 011010 a           43 101011 r           60 111100 8
+     10 001010 K           27 011011 b           44 101100 s           61 111101 9
+     11 001011 L           28 011100 c           45 101101 t           62 111110 - (minus)
+     12 001100 M           29 011101 d           46 101110 u           63 111111 _ (underline)
+     13 001101 N           30 011110 e           47 101111 v
+     14 001110 O           31 011111 f           48 110000 w        (complément) =
+     15 001111 P           32 100000 g           49 110001 x
+     16 010000 Q           33 100001 h           50 110010 y
+
+     
+ http://iharder.sourceforge.net/current/java/base64/ -- 
+ http://www.simplycalc.com/base64-source.php -- 
+ http://base64.sourceforge.net/ -- 
+ http://search.cpan.org/dist/MIME-Base64/Base64.pm -- 
+ 
