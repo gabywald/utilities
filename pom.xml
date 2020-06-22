@@ -5,20 +5,30 @@
 
 	<groupId>gabywald</groupId>
 	<artifactId>utilities</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>utilities</name>
-	<url>http://maven.apache.org</url>
+	<url>http://gabriel.chandesris.free.fr/</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 
 		<maven.plugins.source.version>3.2.1</maven.plugins.source.version>
 		<maven.plugins.javadoc.version>3.1.1</maven.plugins.javadoc.version>
 	</properties>
+
+	<repositories>
+		<!-- for MockNeat -->
+		<repository>
+			<id>jcenter</id>
+			<url>https://jcenter.bintray.com/</url>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -27,6 +37,39 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/net.sourceforge.htmlunit/htmlunit -->
+		<dependency>
+			<groupId>net.sourceforge.htmlunit</groupId>
+			<artifactId>htmlunit</artifactId>
+			<version>2.40.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.jms/jms -->
+		<dependency>
+			<groupId>javax.jms</groupId>
+			<artifactId>jms</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-all</artifactId>
+			<version>5.14.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.26</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.andreinc.mockneat</groupId>
+			<artifactId>mockneat</artifactId>
+			<version>0.3.9</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -64,6 +107,6 @@
 			</plugin>
 		</plugins>
 	</build>
-	
-	
+
+
 </project>
