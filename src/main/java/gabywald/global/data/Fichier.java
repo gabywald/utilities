@@ -12,6 +12,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Vector;
 
+import gabywald.utilities.others.PropertiesLoader;
+
 /**
  * This class to manipulate files. 
  * @author Gabriel Chandesris (2011)
@@ -45,7 +47,7 @@ public class Fichier {
 		this.path				= this.fichier.substring(0, (locaCut>0)?locaCut:0 );
 		
 		this.chaine				= new Vector<String>(0);
-		this.read();
+		this.read( PropertiesLoader.openResource( this.fichier ) );
 	}
 	
 	public Fichier(String name, InputStream is) {
