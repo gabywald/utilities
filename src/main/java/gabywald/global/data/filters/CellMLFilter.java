@@ -1,7 +1,6 @@
 package gabywald.global.data.filters;
 
 import gabywald.global.data.Utils;
-import gabywald.global.data.filters.GenericFileFilter;
 
 /**
  * Specific FileFilter for CellML files...

@@ -3,8 +3,9 @@ package gabywald.global.exceptions;
 /**
  * This Class to define a generic Exception with a message. 
  * @author Gabriel Chandesris (2010, 2014)
- * TODO héritage de Exceptions implicites ou explicited...
+ * TODO Implicit or explicit Exception Inheritance...
  */
+@SuppressWarnings("serial")
 public abstract class GenericException extends Exception {
 	/** To avoid Warning. */
 	// private static final long serialVersionUID = 400L;
