@@ -13,6 +13,7 @@ import gabywald.global.data.filters.GenericFileFilter;
  * @author Gabriel Chandesris (2011)
  * TODO checking path...
  */
+@SuppressWarnings("serial")
 public class Repertoire extends File {
 
 	/**
@@ -23,19 +24,6 @@ public class Repertoire extends File {
 		super(path);
 		/** System.out.println(path); */
 		// if (!this.isDirectory()) { new Repertoire(this.getParentFile().getPath()); }
-	}
-	
-	/**
-	 * Gives the content of the path, file names without any extensions. 
-	 * @return (String[])
-	 * @deprecated ...
-	 */
-	public String[] listContentLess() {
-		String[] lis = this.list();
-		String[] res = new String[lis.length];
-		for (int i = 0 ; i < lis.length ; i++) 
-			{ res[i] = lis[i].split("\\.")[0]; }
-		return res;
 	}
 	
 	/**

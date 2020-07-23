@@ -35,19 +35,7 @@ public class Fichier {
 	 * @param name (String)
 	 */
 	public Fichier(String name) {
-		this.fichier			= name;
-		
-		String fileSeparator	= System.getProperty("file.separator");
-		String theUnixSeparator	= "/";
-		int locaCut				= this.fichier.lastIndexOf(fileSeparator);
-		int unixCut				= this.fichier.lastIndexOf(theUnixSeparator);
-		if (locaCut == -1)	{ locaCut = unixCut; }
-		
-		this.name				= this.fichier.substring(locaCut+1);
-		this.path				= this.fichier.substring(0, (locaCut>0)?locaCut:0 );
-		
-		this.chaine				= new Vector<String>(0);
-		this.read( PropertiesLoader.openResource( this.fichier ) );
+		this(name, PropertiesLoader.openResource( name ) );
 	}
 	
 	public Fichier(String name, InputStream is) {

@@ -14,8 +14,8 @@ import java.util.regex.Matcher;
 public class Utils {
 	/** Image files' extension. */
 	public static final String jpeg	= "jpeg", jpg	= "jpg", 
-								gif	= "gif", tiff	= "tiff", 
-								tif	= "tif", png	= "png";
+								gif	= "gif",  tiff	= "tiff", 
+								tif	= "tif",  png	= "png";
 	/** BibTeX files' extension. */
 	public static final String bib	= "bib";
 	/** Modelica files' extension. */
@@ -70,22 +70,14 @@ public class Utils {
 	 * @return (int)
 	 */
 	public static int randomValue(int sizeMax) {
+		
+		if (sizeMax <= 0) { return 0; }
+		
 		int value = (int)Math.rint(Math.random()*sizeMax);
 		while (value == sizeMax) 
 			{ value = (int)Math.rint(Math.random()*sizeMax); }
 		return value;
 	}
-	
-	
-	/**
-	 * Make an append of txt 'multi' times. 
-	 * @param txt (String)
-	 * @param multi (String)
-	 * @return (String) 'txt' appended (multi) times. 
-	 * @deprecated Use {@linkplain Utils#repeat(String, int)} instead !!
-	 */
-	public static String multiple(String txt, int multi) 
-		{ return Utils.repeat(txt, multi); }
 	
 	/**
 	 * To repeat a given txt' 'times' times. 

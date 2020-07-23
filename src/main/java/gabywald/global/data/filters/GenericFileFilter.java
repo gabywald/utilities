@@ -2,39 +2,41 @@ package gabywald.global.data.filters;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.filechooser.FileFilter;
 
 import gabywald.global.data.Utils;
 
+/**
+ * Generic FileFilter...
+ * @author Gabriel Chandesris (2011, 2020)
+ */
 public abstract class GenericFileFilter extends FileFilter {
-	private List<String> extensions;
+	private List<String> extensions = new ArrayList<String>();
 	
-	public GenericFileFilter(String anExtension) 
-		{ this.init();this.extensions.add(anExtension); }
-	
-	public GenericFileFilter(String[] extensions) {
-		this.init();
-		for (int i = 0 ; i < extensions.length ; i++)
-			 { this.extensions.add(extensions[i]); }
+	public GenericFileFilter(String anExtension) { 
+		this.extensions.add(anExtension); 
 	}
 	
-	public GenericFileFilter(List<String> extensions) 
-		{ this.init();this.extensions.addAll(extensions); }
+	public GenericFileFilter(String[] extensions) {
+		this(Arrays.asList(extensions));
+	}
 	
-	private void init() 
-		{ this.extensions = new ArrayList<String>(); }
+	public GenericFileFilter(List<String> extensions) { 
+		this.extensions.addAll(extensions);
+	}
 	
 	@Override
 	public boolean accept(File f) {
 		if (f.isDirectory())	{ return true; }
 
-		String extension = Utils.getExtension(f);
+		String extension = Utils.getExtension( f );
 		if (extension != null) {
 			boolean isPresent = false;
-			for (int i = 0 ; (i < this.extensions.size()) 
-								&& (!isPresent) ; i++) 
+			
+			for (int i = 0 ; (i < this.extensions.size()) & (!isPresent) ; i++) 
 				{ isPresent = extension.equals(this.extensions.get(i)); }
 			
 			if (isPresent)	{ return true; } 
@@ -44,9 +46,8 @@ public abstract class GenericFileFilter extends FileFilter {
 	}
 	
 	public String toString() {
-		String toReturn = new String("");
-		for (int i = 0 ; i < this.extensions.size() ; i++) 
-			{ toReturn += this.extensions.get(i)+"\t"; }
-		return toReturn;
+		StringBuilder toReturn = new StringBuilder("");
+		this.extensions.stream().forEach( ext -> toReturn.append( ext ).append( "\t") );
+		return toReturn.toString();
 	}
 }
