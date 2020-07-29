@@ -10,7 +10,7 @@ import gabywald.global.data.filters.GenericFileFilter;
 
 /**
  * This class to manipulate directories. 
- * @author Gabriel Chandesris (2011)
+ * @author Gabriel Chandesris (2011, 2020)
  * TODO checking path...
  */
 @SuppressWarnings("serial")
@@ -22,8 +22,6 @@ public class Repertoire extends File {
 	 */
 	public Repertoire(String path) {
 		super(path);
-		/** System.out.println(path); */
-		// if (!this.isDirectory()) { new Repertoire(this.getParentFile().getPath()); }
 	}
 	
 	/**
