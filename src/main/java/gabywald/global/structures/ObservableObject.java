@@ -12,10 +12,10 @@ public class ObservableObject
 		extends Observable 
 		implements Runnable {
 	/** For the state when changes. */
-	private String current_state;
+	private String currentState;
 	
 	/** Default constructor with empty state. */
-	protected ObservableObject() { this.current_state = ""; }
+	protected ObservableObject() { this.currentState = ""; }
 	
 	/** To send a signal of changes. */
 	public void change() {
@@ -24,12 +24,12 @@ public class ObservableObject
 		this.clearChanged();
 	}
 	
-	public String getState() { return this.current_state; }
-	protected void setState(String new_state) 
-		{ this.current_state = new_state; }
-	protected void addState(String add_state) 
-		{ this.current_state += add_state; }
+	public String getState() { return this.currentState; }
+	protected void setState(String newState) 
+		{ this.currentState = newState; }
+	protected void addState(String addState) 
+		{ this.currentState += addState; }
 
-	public void run() { this.current_state = "changement";this.change(); }
+	public void run() { this.currentState = "changement";this.change(); }
 
 }
