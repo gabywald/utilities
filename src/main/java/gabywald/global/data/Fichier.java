@@ -16,7 +16,7 @@ import gabywald.utilities.others.PropertiesLoader;
 
 /**
  * This class to manipulate files. 
- * @author Gabriel Chandesris (2011)
+ * @author Gabriel Chandesris (2011, 2020)
  * TODO adding check of validity
  */
 public class Fichier {
@@ -37,7 +37,12 @@ public class Fichier {
 	public Fichier(String name) {
 		this(name, PropertiesLoader.openResource( name ) );
 	}
-	
+
+	/**
+	 * 
+	 * @param name (String)
+	 * @param is (InputStream)
+	 */
 	public Fichier(String name, InputStream is) {
 		this.fichier			= name;
 		
@@ -78,7 +83,7 @@ public class Fichier {
 			{ this.chaine.add("ERROR : IO '"+this.fichier+"'"); } 
 	}
 	
-	/**  Method to put content of file in <i>chaine</i>. */
+	/** Method to put content of file in <i>chaine</i>. */
 	public void read() {
 		try {
 			this.read(new FileInputStream(this.fichier));
@@ -136,14 +141,13 @@ public class Fichier {
 		{ return new String("\t"+this.fichier+"\n")+this.getChaine(); }
 	
 	public boolean equals(Fichier toCompare) {
-		/** TODO comparaison du contenu... */
-		if (!this.chaine.equals(toCompare.getChaine()))
-			{ return false; }	// System.out.println("Same content...");
-		if (!this.fichier.equals(toCompare.getFichier()))
+		if ( ! this.chaine.equals(toCompare.getChaine()))
 			{ return false; }
-		if (!this.name.equals(toCompare.getName()))
+		if ( ! this.fichier.equals(toCompare.getFichier()))
 			{ return false; }
-		if (!this.path.equals(toCompare.getPath()))
+		if ( ! this.name.equals(toCompare.getName()))
+			{ return false; }
+		if ( ! this.path.equals(toCompare.getPath()))
 			{ return false; }
 		return true;
 	}
@@ -188,5 +192,3 @@ public class Fichier {
 	}
 	
 }
-
-
