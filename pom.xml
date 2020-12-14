@@ -20,6 +20,8 @@
 
 		<maven.plugins.source.version>3.2.1</maven.plugins.source.version>
 		<maven.plugins.javadoc.version>3.1.1</maven.plugins.javadoc.version>
+		
+		<junit.version>5.3.1</junit.version>
 	</properties>
 
 	<repositories>
@@ -31,10 +33,19 @@
 	</repositories>
 
 	<dependencies>
+
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.13.1</version>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- junit 5, unit test -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -97,6 +108,20 @@
 				<id>attach-javadocs</id> <goals> <goal>jar</goal> </goals> </execution> </executions> 
 				</plugin> -->
 		</plugins>
+
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+		</testResources>
+
 	</build>
 
 
