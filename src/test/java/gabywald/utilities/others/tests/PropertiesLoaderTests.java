@@ -21,6 +21,14 @@ public class PropertiesLoaderTests {
 	public void testPropertiesLoader() {
 		PropertiesLoader pl = new PropertiesLoader( "testfile.properties" );
 		Assertions.assertNotNull( pl );
+		Assertions.assertFalse(pl.getProperties().isEmpty());
+	}
+	
+	@Test
+	public void testPropertiesLoaderNegative() {
+		PropertiesLoader pl = new PropertiesLoader( "testfile-inexistant.properties" );
+		Assertions.assertNotNull( pl );
+		Assertions.assertTrue(pl.getProperties().isEmpty());
 	}
 
 	@Test
@@ -29,6 +37,7 @@ public class PropertiesLoaderTests {
 		Assertions.assertNotNull( pl );
 		Assertions.assertEquals("valuable", pl.getProperty( "property.test" ) );
 		Assertions.assertEquals(null, pl.getProperty( "inexistant" ) );
+		Assertions.assertNull( pl.getProperty( "inexistant" ) );
 	}
 
 	@Test

@@ -34,7 +34,7 @@ public class PropertiesLoader {
 			this.props.load(input);
 
 		} catch (IOException ex) {
-			System.out.println("Sorry, unable to load properties {" + filename + "}");
+			System.out.println("Sorry, unable to load properties {" + filename + "} (1)");
 		}
 
 	}
