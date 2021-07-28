@@ -19,39 +19,14 @@ import gabywald.utilities.others.PropertiesLoader;
 
 /**
  * Example of Main Use of a Navigator for Web Scrapping. 
- * @author Gabriel Chandesris (2020)
+ * @author Gabriel Chandesris (2020-2021)
  */
 public class MainUseNavigator implements INavigatorBuildConfig {
 
 	public static void main(String[] args) {
 		// 'exampleNavigator.properties'
 		PropertiesLoader propsLoader	= new PropertiesLoader("exampleNavigator.properties");
-		MainUseNavigator musws			= new MainUseNavigator();
-		for (NavigatorBuilder.NavigatorBuilderField field : NavigatorBuilderField.values()) {
-			String value = ( propsLoader.getProperty(field.getName()) );
-			if (value != null) {
-				switch(field) {
-				case CONNECTION_TIME : 
-					musws.connectTimeout	= Duration.parse( value );
-					break;
-				case READ_TIME : 
-					musws.readTimeout		= Duration.parse( value );
-					break;
-				case BROWSER_USER_AGENT : 
-					musws.userAgent			= value;
-					break;
-				case PROXY_HOST :
-					musws.proxyHost			= value;
-					break; 
-				case PROXY_PORT : 
-					musws.proxyPort			= Integer.valueOf( value );
-					break;
-				default : 
-					// TODO exception or ignore ?!
-				}
-			} // END "if (value != null)"
-		}
-		
+		MainUseNavigator musws			= MainUseNavigator.loadPropertiesInNavigator( propsLoader );
 		musws.host = propsLoader.getProperty("host");
 
 		Navigator ws = NavigatorBuilder.buildWebScrapper( musws );
@@ -127,7 +102,45 @@ public class MainUseNavigator implements INavigatorBuildConfig {
 		}
 
 	}
+	
+	public static MainUseNavigator loadPropertiesInNavigator(PropertiesLoader pl) {
+		MainUseNavigator musws			= new MainUseNavigator();
+		for (NavigatorBuilder.NavigatorBuilderField field : NavigatorBuilderField.values()) {
+			String value = ( pl.getProperty(field.getName()) );
+			if (value != null) {
+				switch(field) {
+				case CONNECTION_TIME : 
+					musws.connectTimeout	= Duration.parse( value );
+					break;
+				case READ_TIME : 
+					musws.readTimeout		= Duration.parse( value );
+					break;
+				case BROWSER_USER_AGENT : 
+					musws.userAgent			= value;
+					break;
+				case PROXY_HOST :
+					musws.proxyHost			= value;
+					break; 
+				case PROXY_PORT : 
+					musws.proxyPort			= Integer.valueOf( value );
+					break;
+				case CSS_ENABLED : 
+					musws.cssenabled		= Boolean.valueOf( value );
+					break;
+				case JS_ENABLED : 
+					musws.jsenabled			= Boolean.valueOf( value );
+					break;
+				default : 
+					// TODO exception or ignore ?!
+				}
+			} // END "if (value != null)"
+		}
+		return musws;
+	}
 
+	private boolean cssenabled		= false;
+	private boolean jsenabled		= false;
+	
 	private String host				= null;
 	private Duration readTimeout	= null;
 	private Duration connectTimeout	= null;
@@ -135,6 +148,16 @@ public class MainUseNavigator implements INavigatorBuildConfig {
 	private String userAgent		= null;
 	private String proxyHost		= null;
 	private Integer proxyPort		= null;
+	
+	@Override
+	public boolean getCSSEnabled() {
+		return this.cssenabled;
+	}
+
+	@Override
+	public boolean getJSEnabled() {
+		return this.jsenabled;
+	}
 
 	@Override
 	public String getHost() {
@@ -165,7 +188,7 @@ public class MainUseNavigator implements INavigatorBuildConfig {
 	public Integer getProxyPort() {
 		return this.proxyPort;
 	}
-
+	
 	@Override
 	public String toString() {
 		return  "host: "                + this.host             + "\n"
@@ -174,6 +197,46 @@ public class MainUseNavigator implements INavigatorBuildConfig {
 				+ "userAgent: "         + this.userAgent        + "\n"
 				+ "proxyHost: "         + this.proxyHost        + "\n"
 				+ "proxyPort: "         + this.proxyPort        + "\n";
+	}
+
+	@Override
+	public void setHost(String host) {
+		this.host = host;
+	}
+
+	@Override
+	public void setReadTimeout(Duration rTimeOut) {
+		this.readTimeout = rTimeOut;
+	}
+
+	@Override
+	public void setConnectTimeout(Duration cTimeOut) {
+		this.connectTimeout = cTimeOut;
+	}
+
+	@Override
+	public void setUserAgent(String userAgent) {
+		this.userAgent = userAgent;
+	}
+
+	@Override
+	public void setProxyHost(String proxyHost) {
+		this.proxyHost = proxyHost;
+	}
+
+	@Override
+	public void setProxyPort(Integer proxyPort) {
+		this.proxyPort = proxyPort;
+	}
+
+	@Override
+	public void setCSSEnabled(boolean cssenabled) {
+		this.cssenabled = cssenabled;
+	}
+
+	@Override
+	public void setJSEnabled(boolean jsEnabled) {
+		this.jsenabled = jsEnabled;
 	}
 
 }

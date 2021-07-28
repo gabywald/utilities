@@ -172,7 +172,9 @@ public class NavigatorBuilder {
 	 */
 	public static Navigator buildWebScrapper(INavigatorBuildConfig config) {
 		NavigatorBuilder wsb      = new NavigatorBuilder();
-		return wsb.cssEnabled(false).jsEnabled(false)
+		return wsb
+				.cssEnabled(config.getCSSEnabled()) // usually false !
+				.jsEnabled(config.getJSEnabled())	// usually false !
 				.connectTimeOut(config.getConnectTimeout().toMillis())
 				.readTimeOut( (int) config.getReadTimeout().toMillis())
 				.browserUserAgent(config.getUserAgent())

@@ -4,9 +4,21 @@ import java.time.Duration;
 
 /**
  * Parent Interface to provide a configuration for NavigatorBuilder. 
- * @author Gabriel Chandesris (2020)
+ * @author Gabriel Chandesris (2020-2021)
  */
 public interface INavigatorBuildConfig {
+	
+	/**
+	 * Returns if CSS has to be enabled.
+	 * @return the host URL. 
+	 */
+	public boolean getCSSEnabled();
+	
+	/**
+	 * Returns if JS has to be enabled. 
+	 * @return the host URL. 
+	 */
+	public boolean getJSEnabled();
 	
 	/**
 	 * Returns the host.
@@ -43,4 +55,14 @@ public interface INavigatorBuildConfig {
 	 * @return ProxyPort
 	 */
 	public Integer getProxyPort();
+	
+	
+	public void setCSSEnabled(boolean cssenabled);
+	public void setJSEnabled(boolean jsEnabled);
+	public void setHost(String host);
+	public void setReadTimeout(Duration rTimeOut);
+	public void setConnectTimeout(Duration cTimeOut);
+	public void setUserAgent(String userAgent);
+	public void setProxyHost(String proxyHost);
+	public void setProxyPort(Integer proxyPort);
 }
