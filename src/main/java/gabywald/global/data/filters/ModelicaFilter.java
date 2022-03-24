@@ -1,14 +1,15 @@
 package gabywald.global.data.filters;
 
-import gabywald.global.data.Utils;
+import gabywald.global.data.StringUtils;
 
 /**
- * Images FileFilter...
- * @author Gabriel Chandesris (2011, 2020)
+ * Modelica FileFilter...
+ * @author Gabriel Chandesris (2011, 2020, 2022)
  */
 public class ModelicaFilter extends GenericFileFilter {
+	
 	public ModelicaFilter() 
-		{ super(Utils.mod); }
+		{ super(StringUtils.mod); }
 
 	@Override
 	public String getDescription() 

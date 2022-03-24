@@ -11,7 +11,8 @@ import gabywald.global.data.filters.GenericFileFilter;
 /**
  * This class to manipulate directories. 
  * @author Gabriel Chandesris (2011, 2020)
- * TODO checking path...
+ * XXX checking path...
+ * @deprecated Use @see {@link Directory}
  */
 @SuppressWarnings("serial")
 public class Repertoire extends File {

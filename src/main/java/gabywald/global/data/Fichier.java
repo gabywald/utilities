@@ -17,7 +17,8 @@ import gabywald.utilities.others.PropertiesLoader;
 /**
  * This class to manipulate files. 
  * @author Gabriel Chandesris (2011, 2020)
- * TODO adding check of validity
+ * XXX adding check of validity
+ * @deprecated Use @see {@link File}
  */
 public class Fichier {
 	/** Content of file (text format). */
