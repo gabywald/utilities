@@ -1,26 +1,29 @@
 package gabywald.utilities.logger;
 
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 /**
  * Logger Class (Singleton and usable as static way). 
- * @author Gabriel Chandesris (2013)
+ * <br/><i>Design-Pattern Singleton</i>
+ * @author Gabriel Chandesris (2013, 2022)
  */
 public class Logger {
+	
+	/** Format of date for GUI view. */
+	public static SimpleDateFormat outputFormat = 
+		new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
-	/**
-	 * Logger's Levels. 
-	 * @author Gabriel Chandesris (2013)
-	 */
 	public enum LoggerLevel {
-		LL_NONE		("NONE"), 
-		LL_VERBOSE	("VERBOSE"), 
-		LL_DEBUG	("DEBUG"), 
-		LL_INFO		("INFO"), 
-		LL_WARNING	("WARNING"), 
-		LL_ERROR	("ERROR"), 
-		LL_FORUSER	("FORUSER");
+		LL_FORUSER		("FORUSER"), 
+		LL_ERROR		("ERROR"), 
+		LL_WARNING		("WARNING"), 
+		LL_DEBUG		("DEBUG"), 
+		LL_INFO			("INFO"), 
+		LL_VERBOSE		("VERBOSE"), 
+		LL_VERBOSER		("VERBOSER"), 
+		LL_VERBOSEST	("VERBOSEST"),
+		LL_NONE			("NONE");
 		
 		private String internalName;
 		LoggerLevel(String name)	{ this.internalName = name; }
@@ -29,12 +32,11 @@ public class Logger {
 	
 	/** Unique instance. */
 	private static Logger instance;
-	/** Level of Loggger. */
+	/** Level of Logger. */
 	private LoggerLevel level;
 	
 	/** Default Constructor. 
-	 * Logger level is set to LL_INFO. 
-	 */
+	 * Logger level is set to LL_INFO. */
 	private Logger() { this.level = LoggerLevel.LL_INFO; }
 	
 	/**
@@ -53,51 +55,32 @@ public class Logger {
 	public static void setLogLevel(LoggerLevel lvl) 
 		{ Logger.getInstance().level = lvl; }
 	
-	public void println(LoggerLevel lvl, String content) {
-		if (lvl.equals(LoggerLevel.LL_NONE))			{ ; }
-		else if (lvl.equals(LoggerLevel.LL_FORUSER))	{ System.out.println(content); }
-		else if (lvl.ordinal() >= this.level.ordinal())	{ 
-			GregorianCalendar currentTime	= new GregorianCalendar();
-			String timeToPrint	= new String("");
-			int month	= (currentTime.get(Calendar.MONTH) + 1);
-			int day		= currentTime.get(Calendar.DAY_OF_MONTH);
-			int milli	= currentTime.get(Calendar.MILLISECOND);
-			timeToPrint			+= currentTime.get(Calendar.YEAR) + "-";
-			timeToPrint			+= ((month < 10)?"0":"") + month + "-";
-			timeToPrint			+= ((day < 10)?"0":"") + day + " ";
-			timeToPrint			+= currentTime.get(Calendar.HOUR_OF_DAY) + ":";
-			timeToPrint			+= currentTime.get(Calendar.MINUTE) + ":";
-			timeToPrint			+= currentTime.get(Calendar.SECOND) + ".";
-			timeToPrint			+= ((milli < 100)?"0"+((milli < 10)?"0":""):"") + milli + "";
-			String lvlType		= new String(lvl.toString());
-			System.out.println( timeToPrint + " " + lvlType + " " + content); 
-		} /** END "if (lvl.ordinal() >= this.level.ordinal())" */
+	public void println(LoggerLevel lvl, String content) 
+		{ this.print(lvl, content + "\n"); }
+	
+	public static boolean isLogLevelAccurate(LoggerLevel lvl) {
+		if (lvl.equals(LoggerLevel.LL_NONE))			{ return false; }
+		else if (lvl.equals(LoggerLevel.LL_FORUSER))	{ return true; }
+		else if (lvl.ordinal() <= Logger.getInstance().level.ordinal())	
+			{ return true; }
+		return false;
 	}
 	
 	public static void printlnLog(LoggerLevel lvl, String content) 
-		{ Logger.getInstance().println(lvl, content); }
+		{ Logger.getInstance().print(lvl, content + "\n"); }
+
+	public static void printLog(LoggerLevel lvl, String content) 
+		{ Logger.getInstance().print(lvl, content); }
 	
 	public void print(LoggerLevel lvl, String content) {
 		if (lvl.equals(LoggerLevel.LL_NONE))			{ ; }
 		else if (lvl.equals(LoggerLevel.LL_FORUSER))	{ System.out.print(content); }
-		else if (lvl.ordinal() >= this.level.ordinal())	{ 
+		else if (lvl.ordinal() <= this.level.ordinal())	{ 
 			GregorianCalendar currentTime	= new GregorianCalendar();
-			String timeToPrint	= new String("");
-			int month	= (currentTime.get(Calendar.MONTH) + 1);
-			int day		= currentTime.get(Calendar.DAY_OF_MONTH);
-			int milli	= currentTime.get(Calendar.MILLISECOND);
-			timeToPrint			+= currentTime.get(Calendar.YEAR) + "-";
-			timeToPrint			+= ((month < 10)?"0":"") + month + "-";
-			timeToPrint			+= ((day < 10)?"0":"") + day + " ";
-			timeToPrint			+= currentTime.get(Calendar.HOUR_OF_DAY) + ":";
-			timeToPrint			+= currentTime.get(Calendar.MINUTE) + ":";
-			timeToPrint			+= currentTime.get(Calendar.SECOND) + ".";
-			timeToPrint			+= ((milli < 100)?"0"+((milli < 10)?"0":""):"") + milli + "";
+			String timeToPrint	= SomeUtilities.toString(currentTime, Logger.outputFormat);
 			String lvlType		= new String(lvl.toString());
 			System.out.print( timeToPrint + " " + lvlType + " " + content); 
-		} /** END "if (lvl.ordinal() >= this.level.ordinal())" */
+		} // END "if (lvl.ordinal() >= this.level.ordinal())"
 	}
 	
-	public static void printLog(LoggerLevel lvl, String content) 
-		{ Logger.getInstance().print(lvl, content); }
 }

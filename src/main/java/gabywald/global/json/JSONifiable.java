@@ -1,6 +1,7 @@
 package gabywald.global.json;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -102,6 +103,14 @@ public abstract class JSONifiable {
 		return new JSONArray(jsonListToReturn);
 	}
 	
+	public static JSONArray generateArray(Collection<? extends JSONifiable> list) {
+		List<JSONValue> jsonListToReturn = new ArrayList<JSONValue>();
+		Iterator<? extends JSONifiable> iterator = list.iterator();
+		while (iterator.hasNext()) 
+			{ jsonListToReturn.add(iterator.next().toJSON()); }
+		return new JSONArray(jsonListToReturn);
+	}
+	
 	public static JSONArray generateStrArray(List<String> listStrings) {
 		List<JSONValue> jsonListToReturn = new ArrayList<JSONValue>();
 		Iterator<String> iterator = listStrings.iterator();
@@ -109,4 +118,5 @@ public abstract class JSONifiable {
 			{ jsonListToReturn.add( JSONValue.instanciate( iterator.next() ) ); }
 		return new JSONArray(jsonListToReturn);
 	}
+
 }

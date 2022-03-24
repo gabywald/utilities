@@ -1,13 +1,19 @@
 package gabywald.global.data;
 
+import java.io.IOException;
 import java.util.Hashtable;
+
+import gabywald.utilities.logger.Logger;
+import gabywald.utilities.logger.Logger.LoggerLevel;
 
 /**
  * This class defines some access to textual datas for Graphical Interfaces (cf. resources/conf/TextualInfo* files). 
  * <br><i>Multiton ("multiple singleton")</i>
- * @author Gabriel Chandesris (2011)
+ * TODO change / tranfert to use 'File' class ! <=
+ * @author Gabriel Chandesris (2011, 2022)
  */
-public class TextualInfoFile extends Fichier {
+@SuppressWarnings("serial")
+public class TextualInfoFile extends File {
 	/** Default configuration file path. */
 	private static String CONF_PATH				= TextualInfoFile.getIndex().getValueOf("path");
 	/** Set of contexts. */
@@ -23,9 +29,14 @@ public class TextualInfoFile extends Fichier {
 	/** Constructor helper, in the aim to load the configuration file. */
 	private void initFile() {
 		this.hash	= new Hashtable<String,String>();
-		String table[] = this.getTable();
+		try {
+			this.load();
+		} catch (IOException e) {
+			Logger.printlnLog(LoggerLevel.LL_ERROR, "TextualInfoFile {" + this.getName() + "} cannot be load !");
+		}
+		String table[] = this.getChampsAsTable();
 		if (!table[0].matches("ERROR")) { 
-			for (int i = 0 ; i < this.getNbLines() ; i++) {
+			for (int i = 0 ; i < table.length ; i++) {
 				String[] split = table[i].split("\t");
 				if (split.length > 1) 
 					{ this.hash.put(split[0], split[1]); }
@@ -79,7 +90,7 @@ public class TextualInfoFile extends Fichier {
 	
 	public String getValueOf(String key) { 
 		if (this.hash.get(key) == null) 
-			{ System.out.println("\t'"+key+"' not found in '"+this.getFichier()+"'!"); }
+			{ System.out.println("\t'" + key + "' not found in '" + this.getName() + "'!"); }
 		return this.hash.get(key);
 	}
 }

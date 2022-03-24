@@ -1,21 +1,25 @@
-package gabywald.global.data;
+package gabywald.utilities.logger;
 
+import gabywald.utilities.logger.Logger.LoggerLevel;
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Some Utilities for File's and FileChooser's...
  * @author Gabriel Chandesris (2011)
  */
-public class Utils {
+public class SomeUtilities {
 	/** Image files' extension. */
 	public static final String jpeg	= "jpeg", jpg	= "jpg", 
-								gif	= "gif",  tiff	= "tiff", 
-								tif	= "tif",  png	= "png";
+								gif	= "gif", tiff	= "tiff", 
+								tif	= "tif", png	= "png";
 	/** BibTeX files' extension. */
 	public static final String bib	= "bib";
 	/** Modelica files' extension. */
@@ -64,20 +68,79 @@ public class Utils {
 		return toReturn;
 	}
 	
+	
+	
+	public static String toString(GregorianCalendar gc, SimpleDateFormat sdt) 
+		{ return sdt.format(gc.getTime()); }
+	
+	public static GregorianCalendar fromString(String stamp, SimpleDateFormat sdt) 
+			throws ParseException {
+		GregorianCalendar gc = new GregorianCalendar();
+		gc.setTime(sdt.parse(stamp));
+		return gc; 
+	}
+	
+	
+	// DONE replace with a SimpleDateFormat !
+	
+	/** @deprecated (20150129) */
+	public static String toString(GregorianCalendar gc) {
+		String timeToPrint	= new String("");
+		int month	= (gc.get(Calendar.MONTH) + 1);
+		int day		= gc.get(Calendar.DAY_OF_MONTH);
+		int milli	= gc.get(Calendar.MILLISECOND);
+		timeToPrint	+= gc.get(Calendar.YEAR) + "-";
+		timeToPrint	+= ((month < 10)?"0":"") + month + "-";
+		timeToPrint	+= ((day < 10)?"0":"") + day + " ";
+		timeToPrint	+= gc.get(Calendar.HOUR_OF_DAY) + ":";
+		timeToPrint	+= gc.get(Calendar.MINUTE) + ":";
+		timeToPrint	+= gc.get(Calendar.SECOND) + ".";
+		timeToPrint	+= ((milli < 100)?"0"+((milli < 10)?"0":""):"") + milli + "";
+		return timeToPrint;
+	}
+	
+	/** @deprecated (20150129) */
+	public static GregorianCalendar fromString(String stamp) throws ParseException {
+		String pattern = "^([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2}).([0-9]{3})$";
+		if ( ! stamp.matches(pattern))	{ throw new ParseException("Not matching Pattern !", 0); }
+		// { return null; }
+		Pattern pat	= Pattern.compile(pattern);
+		Matcher m	= pat.matcher(stamp);
+		if ( ! m.matches())				{ throw new ParseException("Not Matching pattern !", 0); }				
+		// { return null; }
+		GregorianCalendar toReturn = new GregorianCalendar();
+		int yea = Integer.parseInt(m.group(1));
+		int mon = Integer.parseInt(m.group(2)) - 1;
+		int day = Integer.parseInt(m.group(3));
+		int hou = Integer.parseInt(m.group(4));
+		int min = Integer.parseInt(m.group(5));
+		int sec = Integer.parseInt(m.group(6));
+		toReturn.set(yea, mon, day, hou, min, sec);
+		return toReturn;
+	}
+	
 	/**
 	 * Getting a random int between 0 (included) and sizeMax (excluded). 
 	 * @param sizeMax (int)
 	 * @return (int)
 	 */
 	public static int randomValue(int sizeMax) {
-		
-		if (sizeMax <= 0) { return 0; }
-		
 		int value = (int)Math.rint(Math.random()*sizeMax);
 		while (value == sizeMax) 
 			{ value = (int)Math.rint(Math.random()*sizeMax); }
 		return value;
 	}
+	
+	
+	/**
+	 * Make an append of txt 'multi' times. 
+	 * @param txt (String)
+	 * @param multi (String)
+	 * @return (String) 'txt' appended (multi) times. 
+	 * @deprecated Use {@linkplain SomeUtilities#repeat(String, int)} instead !!
+	 */
+	public static String multiple(String txt, int multi) 
+		{ return SomeUtilities.repeat(txt, multi); }
 	
 	/**
 	 * To repeat a given txt' 'times' times. 
@@ -140,7 +203,7 @@ public class Utils {
 		String toReturn	= new String("");
 		if (matcher.matches()) {
 			for (int m = 0 ; m <= matcher.groupCount() ; m++) 
-				{ System.out.println("\t"+m+"\t'"+matcher.group(m)+"'"); }
+				{ Logger.printlnLog(LoggerLevel.LL_INFO, "\t"+m+"\t'"+matcher.group(m)+"'"); }
 		}
 		return toReturn;
 	}

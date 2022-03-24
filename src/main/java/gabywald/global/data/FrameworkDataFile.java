@@ -4,6 +4,7 @@ package gabywald.global.data;
  * 
  * @author Gabriel Chandesris (2012)
  */
+@SuppressWarnings("serial")
 public class FrameworkDataFile extends DataFile {
 	private static final String DEFAULT_DIRECTORY	= "dataFrameWork/";
 	private static final String[] FILENAMES_SET		= {
