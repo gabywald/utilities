@@ -25,7 +25,7 @@ public class NavigatorTwitter {
 		PropertiesLoader propsLoaderNavigator	= new PropertiesLoader("exampleNavigator.properties");
 		PropertiesLoader propsLoaderSocNetWrks	= new PropertiesLoader("socialnetworks.properties");
 		MainUseNavigator lin					= MainUseNavigator.loadPropertiesInNavigator( propsLoaderNavigator );
-		lin.setHost( propsLoaderSocNetWrks.getProperty( "linkedin.url" ) );
+		lin.setHost( propsLoaderSocNetWrks.getProperty( "twitter.url" ) );
 
 		Navigator ws = NavigatorBuilder.buildWebScrapper( lin );
 		
@@ -47,8 +47,8 @@ public class NavigatorTwitter {
 	        final HtmlSubmitInput button				= loginForm.getInputByName("???");
 	        final HtmlTextInput usernameTextField		= loginForm.getInputByName("session[username_or_email]");
 	        final HtmlPasswordInput passwordTextField	= loginForm.getInputByName("session[password]");
-	        usernameTextField.setValueAttribute( propsLoaderSocNetWrks.getProperty( "facebook.username " ) ); // Your Linkedin Username
-	        passwordTextField.setValueAttribute( propsLoaderSocNetWrks.getProperty( "facebook.password " ) ); // Your Linkedin Password
+	        usernameTextField.setValueAttribute( propsLoaderSocNetWrks.getProperty( "twitter.username" ) ); // Your Twitter Username
+	        passwordTextField.setValueAttribute( propsLoaderSocNetWrks.getProperty( "twitter.password" ) ); // Your Twitter Password
 	        final HtmlPage responsePage					= button.click();
 	        String htmlBody								= responsePage.getWebResponse().getContentAsString();
 	        System.out.println(htmlBody);

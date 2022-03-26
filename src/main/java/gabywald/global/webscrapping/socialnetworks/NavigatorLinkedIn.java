@@ -40,8 +40,8 @@ public class NavigatorLinkedIn {
 	        final HtmlSubmitInput button				= loginForm.getInputByValue( "S’identifier" ); // loginForm.getInputByName("signin");
 	        final HtmlTextInput usernameTextField		= loginForm.getInputByName("session_key");
 	        final HtmlPasswordInput passwordTextField	= loginForm.getInputByName("session_password");
-	        usernameTextField.setValueAttribute( propsLoaderSocNetWrks.getProperty( "linkedin.username " ) ); // Your Linkedin Username
-	        passwordTextField.setValueAttribute( propsLoaderSocNetWrks.getProperty( "linkedin.password " ) ); // Your Linkedin Password
+	        usernameTextField.setValueAttribute( propsLoaderSocNetWrks.getProperty( "linkedin.username" ) ); // Your Linkedin Username
+	        passwordTextField.setValueAttribute( propsLoaderSocNetWrks.getProperty( "linkedin.password" ) ); // Your Linkedin Password
 	        final HtmlPage responsePage					= button.click();
 	        String htmlBody								= responsePage.getWebResponse().getContentAsString();
 	        System.out.println(htmlBody);

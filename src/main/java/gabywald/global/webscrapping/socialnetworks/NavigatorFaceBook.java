@@ -29,12 +29,12 @@ public class NavigatorFaceBook {
 		PropertiesLoader propsLoaderNavigator	= new PropertiesLoader("exampleNavigator.properties");
 		PropertiesLoader propsLoaderSocNetWrks	= new PropertiesLoader("socialnetworks.properties");
 		MainUseNavigator lin					= MainUseNavigator.loadPropertiesInNavigator( propsLoaderNavigator );
-		lin.setHost( propsLoaderSocNetWrks.getProperty( "linkedin.url" ) );
+		lin.setHost( propsLoaderSocNetWrks.getProperty( "facebook.url" ) );
 
 		Navigator ws = NavigatorBuilder.buildWebScrapper( lin );
 		
 	   try {
-	        String url = propsLoaderSocNetWrks.getProperty( "facebook.url" );
+	        String url = propsLoaderSocNetWrks.getProperty( "linkedin.url" );
 	        final WebClient webClient = new WebClient();
 	        webClient.getOptions().setJavaScriptEnabled(false);
 	        webClient.getOptions().setCssEnabled(false);
@@ -51,8 +51,8 @@ public class NavigatorFaceBook {
 	        final HtmlSubmitInput button				= loginForm.getInputByName("login");
 	        final HtmlTextInput usernameTextField		= loginForm.getInputByName("email");
 	        final HtmlPasswordInput passwordTextField	= loginForm.getInputByName("pass");
-	        usernameTextField.setValueAttribute( propsLoaderSocNetWrks.getProperty( "facebook.username " ) ); // Your Linkedin Username
-	        passwordTextField.setValueAttribute( propsLoaderSocNetWrks.getProperty( "facebook.password " ) ); // Your Linkedin Password
+	        usernameTextField.setValueAttribute( propsLoaderSocNetWrks.getProperty( "facebook.username" ) ); // Your FaceBook Username
+	        passwordTextField.setValueAttribute( propsLoaderSocNetWrks.getProperty( "facebook.password" ) ); // Your FaceBook Password
 	        final HtmlPage responsePage					= button.click();
 	        String htmlBody								= responsePage.getWebResponse().getContentAsString();
 	        System.out.println(htmlBody);
