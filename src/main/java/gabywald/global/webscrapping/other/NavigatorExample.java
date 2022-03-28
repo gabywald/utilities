@@ -3,10 +3,12 @@ package gabywald.global.webscrapping.other;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
@@ -64,7 +66,19 @@ public class NavigatorExample {
 			// for (Cookie cookie : webClient.getCookieManager().getCookies()) 
 			// 	{ System.out.println( cookie ); }
 
+			// TODO iteration of different lists (with a meta-list !?)
 			HtmlPage nextPage = webClient.getPage( propsLoaderLocal.getProperty( "list.Troll2Jeux" ) );
+			System.out.println( nextPage.getBody() );
+			
+			for (HtmlAnchor elt : nextPage.getBody().getByXPath( "//a[@class='topictitle']" )
+													.stream()
+												    .filter(obj -> obj instanceof HtmlAnchor)
+												    .map(HtmlAnchor.class::cast).collect(Collectors.toList())) {
+				System.out.println( "[" + elt.getTextContent() + "] => [" + elt.getAttribute( "href" ) + "]" );
+				// TODO analyse / parse date and name of the game
+				// XXX if full date not found (year : analyse the initial / last post in thread)
+				// XXX complete the found URLs !
+			}
 			// TODO parsing, grabing and getting data from this page and similar to generate "calendar data"
 
 
