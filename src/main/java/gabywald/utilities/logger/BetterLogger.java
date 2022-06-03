@@ -3,6 +3,10 @@ package gabywald.utilities.logger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Better Logger Class. 
+ * @author Gabriel Chandesris (2018)
+ */
 public class BetterLogger {
 	public static enum LOG_LEVEL { VERB_, DEBUG, INFO, WARN, ERROR, FATAL };
 	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
