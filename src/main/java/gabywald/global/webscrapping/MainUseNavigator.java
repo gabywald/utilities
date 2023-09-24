@@ -10,9 +10,9 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
+import org.htmlunit.FailingHttpStatusCodeException;
+import org.htmlunit.html.HtmlAnchor;
+import org.htmlunit.html.HtmlPage;
 
 import gabywald.global.webscrapping.NavigatorBuilder.NavigatorBuilderField;
 import gabywald.utilities.others.PropertiesLoader;
