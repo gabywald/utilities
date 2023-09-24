@@ -8,15 +8,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import org.htmlunit.ElementNotFoundException;
+import org.htmlunit.FailingHttpStatusCodeException;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlAnchor;
+import org.htmlunit.html.HtmlForm;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlPasswordInput;
+import org.htmlunit.html.HtmlSubmitInput;
+import org.htmlunit.html.HtmlTextInput;
 
 import gabywald.global.webscrapping.MainUseNavigator;
 import gabywald.global.webscrapping.Navigator;
@@ -84,7 +84,7 @@ public class NavigatorExample {
 			}
 			
 			HtmlPage logoutPage = webClient.getPage( propsLoaderLocal.getProperty( "website.logout" ) );
-			System.out.println( logoutPage.getBody().asText().contains("Connexion") );
+			System.out.println( logoutPage.getBody().getTextContent().contains("Connexion") );
 			webClient.close();
 		} catch (ElementNotFoundException enfe) {
 			enfe.printStackTrace();

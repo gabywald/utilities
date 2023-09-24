@@ -9,9 +9,9 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.PluginConfiguration;
-import com.gargoylesoftware.htmlunit.WebClient;
+import org.htmlunit.BrowserVersion;
+import org.htmlunit.PluginConfiguration;
+import org.htmlunit.WebClient;
 
 /**
  * Builder for Navigator / WebScrapping. 
