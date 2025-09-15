@@ -8,7 +8,8 @@ import java.io.InputStreamReader;
  * Classe utilisee pour les entree / sorties. 
  * <br/>N'est pas faire pour etre instanciee toutes les methodes sont statiques. 
  * <br/>Merci au CNAM : http://deptinfo.cnam.fr/Enseignement/CycleA/APA/
- * @author Gabriel Chandesris (2007)
+ * @author Gabriel Chandesris (2007, 2025)
+ * @deprecated Use an alternative class to show some data !
  */
 public abstract class Terminal {
 	static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
