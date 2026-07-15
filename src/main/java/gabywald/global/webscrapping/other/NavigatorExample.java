@@ -33,7 +33,7 @@ public class NavigatorExample {
 	
 	// Day of week, number in month, month...
 	private static final Pattern dateRecognition = 
-			Pattern.compile( "^(.*) ([1-9]+)(er)? ([A-Za-zé]+) ((20[0-9]{2}) )?[:-] ((.*))$" );
+			Pattern.compile( "^(.*) ([1-9]+)(er)? ([A-Za-zéû]+) ((20[0-9]{2}) )?[:-] ((.*))$" );
 	
 	public static void main(String[] args) {
 
