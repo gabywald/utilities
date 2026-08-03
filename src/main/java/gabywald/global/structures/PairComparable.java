@@ -11,18 +11,18 @@ import gabywald.global.json.JSONifiable;
  * @param <FIRST> First parameter's type. 
  * @param <SECOND> Second paramater's type. 
  */
-public class Pair<FIRST extends Comparable<FIRST>, SECOND extends Comparable<SECOND> > 
+public class PairComparable<FIRST extends Comparable<FIRST>, SECOND extends Comparable<SECOND> > 
 		extends JSONifiable
-		implements Comparable<Pair<FIRST, SECOND>> {
+		implements Comparable<PairComparable<FIRST, SECOND>> {
 	private FIRST first;
 	private SECOND second;
 	
-	public Pair() {
+	public PairComparable() {
 		this.first	= null;
 		this.second	= null;
 	}
 
-	public Pair(FIRST first, SECOND second) {
+	public PairComparable(FIRST first, SECOND second) {
 		this.first	= first;
 		this.second	= second;
 	}
@@ -33,12 +33,12 @@ public class Pair<FIRST extends Comparable<FIRST>, SECOND extends Comparable<SEC
 	public void setFirst(FIRST first)		{ this.first = first; }
 	public void setSecond(SECOND second)	{ this.second = second; }
 	
-	public boolean equals(Pair<FIRST, SECOND> toCompare) 
+	public boolean equals(PairComparable<FIRST, SECOND> toCompare) 
 		{ return ( (this.first.equals(toCompare.first)) 
 				&& (this.second.equals(toCompare.second)) ); }
 
 	@Override
-	public int compareTo(Pair<FIRST, SECOND> toCompare) 
+	public int compareTo(PairComparable<FIRST, SECOND> toCompare) 
 		{ return this.second.compareTo(toCompare.second); }
 		// { return this.first.compareTo(toCompare.first); }
 	
