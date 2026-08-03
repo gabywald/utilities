@@ -9,8 +9,7 @@ import gabywald.utilities.logger.Logger.LoggerLevel;
 /**
  * This class defines some access to textual datas for Graphical Interfaces (cf. resources/conf/TextualInfo* files). 
  * <br><i>Multiton ("multiple singleton")</i>
- * TODO change / tranfert to use 'File' class ! <=
- * @author Gabriel Chandesris (2011, 2022)
+ * @author Gabriel Chandesris (2011, 2022, 2025)
  */
 @SuppressWarnings("serial")
 public class TextualInfoFile extends File {
@@ -45,9 +44,20 @@ public class TextualInfoFile extends File {
 		}
 	}
 	
-	private static TextualInfoFile getIndex() 
+	/**
+	 * Search for ("src/main/")?"resources/conf/textualInfos/index.conf"
+	 * @return TextualInfoFile instance !
+	 */
+	private static TextualInfoFile getIndex() {
+		TextualInfoFile tifTrue = TextualInfoFile.getIndex(true);
+		if (tifTrue.fileExists()) { return tifTrue; }
+		 // XXX an error comes later if does not exists !!
+		return TextualInfoFile.getIndex(false);
+	}
+	
+	private static TextualInfoFile getIndex(boolean isInSRC) 
 		{ return new TextualInfoFile
-					("resources/conf/textualInfos/index.conf"); }
+				(((isInSRC)?"src/main/":"") + "resources/conf/textualInfos/index.conf"); }
 	
 	public static String toCapitalLetter(String txt) 
 		{ return txt.substring(0, 1).toUpperCase()+txt.substring(1); }
